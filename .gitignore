@@ -1,0 +1,9 @@
+# Decompiled game sources (copyrighted, do not publish)
+src/
+DecompilerTool/obj/
+DecompilerTool/bin/
+CloverCheat/obj/
+CloverCheat/bin/
+*.user
+*.suo
+*.zip
