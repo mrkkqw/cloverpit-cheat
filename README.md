@@ -78,9 +78,3 @@ dotnet build CloverCheat\CloverCheat.csproj -c Release
 `SaveData\GameData\GameDataFull.json` — XOR-шифрованный JSON (ключ 27 байт, см. `SaveTool.ps1`).
 Инструмент: `powershell -File cloverpit_re\SaveTool.ps1 decrypt|encrypt|verify`
 
-## Устранение неполадок
-
-- Игра крашится на старте (0xC0000005) → стоит BepInEx 5.4.23.2 вместо **5.4.23.4** (Doorstop 4.4.1 обязателен для Unity 6000)
-- Меню не открывается → смотрим `BepInEx\LogOutput.log`, раздел `:CloverCheat`
-- «game data: not loaded» → нужно зайти в ран (данные gameplayData ещё не созданы в главном меню)
-- Сохранение не происходит → игра не сохраняет во время отсчёта смерти и на кастомном сиде (так задумано в игре)
