@@ -44,6 +44,7 @@ namespace CloverCheat
         private float _luckSlider = 10f;
         private int _selectedSymbol;
         private bool _infiniteSpins;
+        private float _timeScale = 1f;
 
         // OS cursor state before the menu was opened (the game hides the real cursor
         // once in VirtualCursors.Awake and never re-asserts it, so we must restore it ourselves)
@@ -191,6 +192,7 @@ namespace CloverCheat
             if (Section("PATTERNS")) DrawPatterns();
             if (Section("EVENT 666")) Draw666();
             if (Section("STORE & MISC")) DrawStore();
+            if (Section("TIME SCALE")) DrawTime();
             DrawSave();
 
             GUILayout.EndScrollView();
@@ -199,7 +201,7 @@ namespace CloverCheat
 
         private static readonly bool[] _sectionOpen =
         {
-            true, true, true, true, true, true, true, true, true, true, true
+            true, true, true, true, true, true, true, true, true, true, true, true
         };
         private int _sectionIdx;
 
@@ -517,6 +519,29 @@ namespace CloverCheat
             if (Btn("Max equip powerups +1")) GameplayData.MaxEquippablePowerupsAdd(1);
             if (Btn("RedButton mult +1")) GameplayData.RedButtonActivationsMultiplierAdd(1);
             GUILayout.EndHorizontal();
+        }
+
+        private void DrawTime()
+        {
+            RowReset();
+            GUILayout.BeginHorizontal();
+            GUILayout.Label("Game speed:", _lblStyle, GUILayout.Width(75f));
+            _timeScale = GUILayout.HorizontalSlider(_timeScale, 0f, 5f);
+            GUILayout.Label(_timeScale.ToString("0.00") + "x", _lblStyle, GUILayout.Width(45f));
+            GUILayout.EndHorizontal();
+
+            GUILayout.BeginHorizontal();
+            if (Btn("FREEZE", 55f)) _timeScale = 0f;
+            if (Btn("0.5x", 45f)) _timeScale = 0.5f;
+            if (Btn("1x", 40f)) _timeScale = 1f;
+            if (Btn("2x", 40f)) _timeScale = 2f;
+            if (Btn("3x", 40f)) _timeScale = 3f;
+            if (Btn("5x", 40f)) _timeScale = 5f;
+            GUILayout.EndHorizontal();
+
+            // Re-assert every frame while the menu is open so the game cannot revert it.
+            // Value persists after closing the menu; to return to normal open the menu and set 1x.
+            Time.timeScale = _timeScale;
         }
 
         private void DrawSave()
