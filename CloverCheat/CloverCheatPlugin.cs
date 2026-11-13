@@ -74,7 +74,7 @@ namespace CloverCheat
         private void Awake()
         {
             Log = Logger;
-            _menuKey = Config.Bind("Hotkeys", "ToggleMenuKey", new KeyboardShortcut(KeyCode.F1), "Show/hide cheat menu");
+            _menuKey = Config.Bind("Hotkeys", "ToggleMenuKey", new KeyboardShortcut(KeyCode.Insert), "Show/hide cheat menu (Insert also always works)");
             _coinsKey = Config.Bind("Hotkeys", "AddCoinsKey", new KeyboardShortcut(KeyCode.F6), "Quick +100000 coins");
             _ticketsKey = Config.Bind("Hotkeys", "AddTicketsKey", new KeyboardShortcut(KeyCode.F7), "Quick +100 tickets");
             _luckKey = Config.Bind("Hotkeys", "LuckBoostKey", new KeyboardShortcut(KeyCode.F8), "Quick luck x3 for 999 spins");
@@ -88,7 +88,7 @@ namespace CloverCheat
 
         private void Update()
         {
-            if (_menuKey.Value.IsDown())
+            if (_menuKey.Value.IsDown() || Input.GetKeyDown(KeyCode.Insert))
             {
                 _showMenu = !_showMenu;
                 if (_showMenu)
